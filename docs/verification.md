@@ -37,4 +37,8 @@ python -m build
 
 These coverage values are deterministic example observations, not evidence that
 every finite test set attains nominal coverage or reproduces the paper's results.
-The GitHub Actions matrix is prepared but has not run on GitHub.
+The subsequent public GitHub Actions matrix also passed on Python 3.10 and 3.12:
+29 tests passed per job; the CUDA and internal-reference tests were skipped as
+expected on those CPU-only public runners. Lint, formatting, both examples and
+package builds passed as well. The CPU-wheel configuration was verified in
+[run 34572147776](https://github.com/julianteusch/sparc-uq/actions/runs/34572147776).
