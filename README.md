@@ -1,13 +1,14 @@
 # SPARC-UQ
 
+[Paper (ECCV 2026)](https://arxiv.org/abs/2608.20802) |
+[Project](https://julianteusch.github.io/projects/sparc/) |
+[Illustrated explainer](https://huggingface.co/spaces/Setoka/SPARC) |
+[Citation](#citation)
+
 **Keep your point estimator. Add feature-aware scales and held-out prediction intervals.**
 
 A small PyTorch package implementing the reusable scaling core of
 [SPARC: Single-Pass Scaling for Motion Forecasting with Conformal Bayesian Last Layers](https://arxiv.org/abs/2608.20802).
-
-[Paper](https://arxiv.org/abs/2608.20802) |
-[Project](https://julianteusch.github.io/projects/sparc/) |
-[Illustrated explainer](https://huggingface.co/spaces/Setoka/SPARC)
 
 **Status: initial integration library.** This is not the full motion benchmark
 release and does not yet reproduce the paper's learned graph-temporal covariance
@@ -185,6 +186,9 @@ compatibility label, not a cryptographic weight check. Load only trusted artifac
 - [Release checklist](docs/release-checklist.md).
 
 ## Citation
+
+If you use SPARC or build on its uncertainty-scaling approach in your research,
+please cite our paper:
 
 ```bibtex
 @article{hossain2026sparc,
