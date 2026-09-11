@@ -14,12 +14,15 @@ dependencies = ["torch>=2.2"]
 
 [project.optional-dependencies]
 dev = ["pytest>=8", "ruff>=0.6", "build"]
+visualization = ["matplotlib>=3.7"]
+notebook = ["matplotlib>=3.7", "jupyterlab>=4", "ipykernel>=6", "nbformat>=5.9", "nbclient>=0.8", "jupytext>=1.16"]
 
 [project.urls]
 Paper = "https://arxiv.org/abs/2608.20802"
 Project = "https://julianteusch.github.io/projects/sparc/"
 Source = "https://github.com/julianteusch/sparc-uq"
 Issues = "https://github.com/julianteusch/sparc-uq/issues"
+Notebook = "https://github.com/julianteusch/sparc-uq/blob/main/notebooks/01_forecasts_and_diagnostics.ipynb"
 
 [tool.setuptools.packages.find]
 where = ["src"]
@@ -31,6 +34,7 @@ addopts = "-ra"
 [tool.ruff]
 line-length = 100
 target-version = "py310"
+extend-exclude = ["*.ipynb"]
 
 [tool.ruff.lint]
 select = ["E", "F", "I", "B"]

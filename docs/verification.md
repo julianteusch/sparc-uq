@@ -42,3 +42,22 @@ The subsequent public GitHub Actions matrix also passed on Python 3.10 and 3.12:
 expected on those CPU-only public runners. Lint, formatting, both examples and
 package builds passed as well. The CPU-wheel configuration was verified in
 [run 34572147776](https://github.com/julianteusch/sparc-uq/actions/runs/34572147776).
+
+## Notebook and Visualization Extension
+
+The extension was executed on the same bigbo Python/PyTorch environment, with
+Matplotlib 3.8.3, NumPy 1.26.4, nbclient 0.8.0 and Jupytext 1.19.5.
+
+- 42 tests passed locally, including finite-difference checks for design-space
+  sensitivities, exact signed-term sums, plot input validation and a nonblank
+  canvas-pixel check.
+- All 10 notebook code cells executed successfully and produced six PNG plot
+  outputs. The saved notebook was validated with nbformat.
+- All six exported figure sets were visually inspected for readability, labels,
+  clipping and consistent covariance color scales; PNG and SVG exports are available.
+- The public CI configuration now installs optional visualization dependencies
+  and executes the complete notebook on Python 3.12.
+
+Re-run with `python scripts/execute_notebook.py`; plot artifacts and synthetic
+checkpoints are deliberately excluded from Git, while the executed notebook is
+included for immediate viewing on GitHub.

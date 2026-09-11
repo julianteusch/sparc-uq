@@ -3,6 +3,7 @@
 [Paper (ECCV 2026)](https://arxiv.org/abs/2608.20802) |
 [Project](https://julianteusch.github.io/projects/sparc/) |
 [Illustrated explainer](https://huggingface.co/spaces/Setoka/SPARC) |
+[Visual notebook](notebooks/01_forecasts_and_diagnostics.ipynb) |
 [Citation](#citation)
 
 **Keep your point estimator. Add feature-aware scales and held-out prediction intervals.**
@@ -50,6 +51,23 @@ The examples are CPU-only, use synthetic data and need no downloads. The first
 fits an ordinary linear point estimator, attaches SPARC, evaluates intervals and
 checks a save/load round trip. The second demonstrates a custom motion adapter
 with manually specified graph-temporal covariance, not a learned paper model.
+
+## Visual Notebook and Diagnostics
+
+The [executed Jupyter notebook](notebooks/01_forecasts_and_diagnostics.ipynb) walks
+through the structured synthetic example with forecasts, interval coverage/width,
+feature-support projections, covariance comparisons and leverage diagnostics.
+
+```bash
+python -m pip install -e '.[notebook]'
+jupyter lab notebooks/01_forecasts_and_diagnostics.ipynb
+```
+
+Reusable Matplotlib helpers live in `sparc.visualization`; install only
+`.[visualization]` when Jupyter is not needed. `sparc.explain_leverage` provides
+signed contributions to kappa-1 and local design-feature sensitivities without
+plotting dependencies. These are **not causal importance or SHAP values**.
+See the [visualization guide](docs/visualization.md) for contracts and limitations.
 
 ## Attach an Existing PyTorch Model
 
