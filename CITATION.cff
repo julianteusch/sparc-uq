@@ -3,6 +3,8 @@ message: "Please cite the SPARC paper when using its method."
 title: "SPARC-UQ: reusable feature-leverage scaling and conformal intervals"
 version: 0.1.0
 type: software
+license: Apache-2.0
+repository-code: https://github.com/julianteusch/sparc-uq
 authors:
   - family-names: Hossain
     given-names: Sakif

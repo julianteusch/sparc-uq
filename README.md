@@ -36,6 +36,8 @@ point predictor + features -> kappa -> scaled covariance -> conformal intervals
 From this repository, using Python 3.10+ and PyTorch 2.2+:
 
 ```bash
+git clone https://github.com/julianteusch/sparc-uq.git
+cd sparc-uq
 python -m venv .venv
 source .venv/bin/activate
 python -m pip install -e '.[dev]'
@@ -205,6 +207,9 @@ Accepted at ECCV 2026. Sakif Hossain and Julian Teusch contributed equally.
 
 ## License
 
-No open-source license has been selected yet. Public redistribution and package
-publication are pending author approval; do not infer rights from the paper's
-license or from a similarly named repository.
+The original code and documentation in this repository are licensed under the
+[Apache License 2.0](LICENSE). See [NOTICE](NOTICE) for attribution.
+Dependencies retain their respective licenses. This does not license external
+datasets, checkpoints or paper assets that are not distributed in this repository.
+
+The research citation request above is separate from the license terms.

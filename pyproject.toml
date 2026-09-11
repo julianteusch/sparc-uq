@@ -1,5 +1,5 @@
 [build-system]
-requires = ["setuptools>=68"]
+requires = ["setuptools>=77"]
 build-backend = "setuptools.build_meta"
 
 [project]
@@ -7,6 +7,8 @@ name = "sparc-uq"
 version = "0.1.0"
 description = "Feature-leverage scaling and split conformal intervals for frozen point estimators"
 readme = "README.md"
+license = "Apache-2.0"
+license-files = ["LICENSE", "NOTICE"]
 requires-python = ">=3.10"
 dependencies = ["torch>=2.2"]
 
@@ -16,6 +18,8 @@ dev = ["pytest>=8", "ruff>=0.6", "build"]
 [project.urls]
 Paper = "https://arxiv.org/abs/2608.20802"
 Project = "https://julianteusch.github.io/projects/sparc/"
+Source = "https://github.com/julianteusch/sparc-uq"
+Issues = "https://github.com/julianteusch/sparc-uq/issues"
 
 [tool.setuptools.packages.find]
 where = ["src"]

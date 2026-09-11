@@ -1,0 +1,10 @@
+SPARC-UQ
+Copyright 2026 SPARC-UQ contributors
+
+This software implements a reusable core of the approach described in:
+SPARC: Single-Pass Scaling for Motion Forecasting with Conformal Bayesian Last Layers
+Sakif Hossain, Julian Teusch, and Joerg P. Mueller
+https://arxiv.org/abs/2608.20802
+
+Sakif Hossain and Julian Teusch contributed equally to the paper.
+This attribution notice does not add conditions to the Apache License 2.0.

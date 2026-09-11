@@ -10,9 +10,9 @@
 
 ## Before a Public Code Announcement
 
-- Confirm GitHub account/organization, repository name and public visibility.
-- Agree on code license with authors and review upstream obligations for any future
-  source/checkpoint imports. No license has been implicitly granted here.
+- Public destination approved: https://github.com/julianteusch/sparc-uq.
+- Apache-2.0 approved for the original repository code and documentation. Review
+  upstream obligations separately for any future source/checkpoint imports.
 - Audit actual staged files for secrets and private paths/data.
 - Reproduce one locked paper configuration end to end, including actual mean,
   covariance checkpoint, preprocessing and coverage evaluation.
@@ -20,7 +20,8 @@
 - Port structured operators before advertising large-trajectory efficiency.
 - Validate against multiple Python/PyTorch versions and a clean installation.
 - Document feature provenance, supported predictors and benchmark limitations.
-- Only then link the code release from the project page and Hugging Face Space.
+- The project page and Hugging Face Space may link this initial core library with
+  its scope clearly labeled; do not imply full paper reproduction before validation.
 
-Publishing to GitHub, PyPI, Hugging Face or Overleaf is not part of creating this
-local repository and has not been performed by the initial scaffold.
+GitHub publication is approved for this initial core library. PyPI publication,
+checkpoint releases and full paper benchmark reproduction remain separate steps.
