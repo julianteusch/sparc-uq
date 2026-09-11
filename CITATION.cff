@@ -1,0 +1,25 @@
+cff-version: 1.2.0
+message: "Please cite the SPARC paper when using its method."
+title: "SPARC-UQ: reusable feature-leverage scaling and conformal intervals"
+version: 0.1.0
+type: software
+authors:
+  - family-names: Hossain
+    given-names: Sakif
+  - family-names: Teusch
+    given-names: Julian
+  - family-names: Müller
+    given-names: Jörg P.
+preferred-citation:
+  type: article
+  title: "SPARC: Single-Pass Scaling for Motion Forecasting with Conformal Bayesian Last Layers"
+  authors:
+    - family-names: Hossain
+      given-names: Sakif
+    - family-names: Teusch
+      given-names: Julian
+    - family-names: Müller
+      given-names: Jörg P.
+  year: 2026
+  doi: 10.48550/arXiv.2608.20802
+  url: https://arxiv.org/abs/2608.20802
