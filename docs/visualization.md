@@ -71,8 +71,7 @@ from sparc.visualization import plot_leverage_terms
 
 features = adapter(test_inputs).features  # [B,H,P], including the correct bias
 explanation = explain_leverage(uq.leverage, features)
-ax = plot_leverage_terms(explanation, sample=0, horizon=0,
-                         feature_names=design_names, top_k=6)
+ax = plot_leverage_terms(explanation, sample=0, horizon=0, feature_names=design_names, top_k=6)
 ```
 
 For fixed fitted precision Lambda:
