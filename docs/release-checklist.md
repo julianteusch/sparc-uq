@@ -8,7 +8,7 @@
 - Synthetic examples, validation tests and optional research-core parity.
 - CI definition, citation metadata and excluded environment/checkpoint artifacts.
 
-## Before a Public Code Announcement
+## Before Claiming Full Paper Reproduction
 
 - Public destination approved: https://github.com/julianteusch/sparc-uq.
 - Apache-2.0 approved for the original repository code and documentation. Review
@@ -23,5 +23,7 @@
 - The project page and Hugging Face Space may link this initial core library with
   its scope clearly labeled; do not imply full paper reproduction before validation.
 
-GitHub publication is approved for this initial core library. PyPI publication,
-checkpoint releases and full paper benchmark reproduction remain separate steps.
+The initial library may be promoted with its scope explicitly labeled, without
+claiming benchmark reproduction. See [publishing.md](publishing.md) for the
+versioned GitHub release, wheel checks and PyPI Trusted Publishing setup.
+Checkpoint releases and full paper reproduction remain separate work.

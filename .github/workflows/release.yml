@@ -1,0 +1,110 @@
+name: Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      publish_pypi:
+        description: Publish to PyPI after the trusted publisher has been configured
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  build:
+    if: startsWith(github.ref, 'refs/tags/v')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
+        with:
+          python-version: '3.12'
+      - name: Verify release tag and citation version
+        env:
+          RELEASE_TAG: ${{ github.ref_name }}
+        run: |
+          python - <<'PY'
+          import os
+          import pathlib
+          import re
+          import tomllib
+          version = tomllib.loads(pathlib.Path('pyproject.toml').read_text())['project']['version']
+          assert re.fullmatch(r'\d+\.\d+\.\d+', version), version
+          assert os.environ['RELEASE_TAG'] == f'v{version}', 'Tag/version mismatch'
+          assert f'version: {version}' in pathlib.Path('CITATION.cff').read_text()
+          PY
+      - run: python -m pip install build twine ruff
+      - run: python -m ruff check .
+      - run: python -m ruff format --check .
+      - run: python -m build
+      - run: python -m twine check --strict dist/*
+      - name: Install the wheel, not an editable source checkout
+        run: |
+          python -m pip install torch --index-url https://download.pytorch.org/whl/cpu
+          python -m pip install "$(find dist -name '*.whl')[dev,notebook]"
+          python - <<'PY'
+          from importlib.metadata import version
+          from pathlib import Path
+          import tomllib
+          import sparc
+          expected = tomllib.loads(Path('pyproject.toml').read_text())['project']['version']
+          assert version('sparc-uq') == expected
+          assert not Path(sparc.__file__).resolve().is_relative_to(Path.cwd())
+          print('Testing installed wheel:', sparc.__file__)
+          PY
+      - run: python -m pytest
+      - run: python examples/quickstart.py
+      - run: python examples/structured_forecast.py
+      - run: python scripts/execute_notebook.py --output artifacts/notebook-release.ipynb
+      - name: Record distribution checksums
+        run: sha256sum dist/*.whl dist/*.tar.gz > dist/SHA256SUMS
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: distributions
+          path: dist/
+          if-no-files-found: error
+
+  github-release:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4
+        with:
+          name: distributions
+          path: dist/
+      - name: Publish a versioned GitHub release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RELEASE_TAG: ${{ github.ref_name }}
+        run: |
+          if gh release view "$RELEASE_TAG" >/dev/null 2>&1; then
+            echo "Release already exists; keeping its assets unchanged."
+          else
+            gh release create "$RELEASE_TAG" dist/* --verify-tag --title "SPARC-UQ $RELEASE_TAG (alpha)" --notes-file CHANGELOG.md
+          fi
+
+  pypi:
+    if: inputs.publish_pypi
+    needs: [build, github-release]
+    runs-on: ubuntu-latest
+    environment:
+      name: pypi
+      url: https://pypi.org/project/sparc-uq/
+    permissions:
+      id-token: write
+    steps:
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4
+        with:
+          name: distributions
+          path: dist/
+      - name: Exclude checksum manifest from the package upload
+        run: mv dist/SHA256SUMS SHA256SUMS
+      - uses: pypa/gh-action-pypi-publish@dc37677b2e1c63e2034f94d8a5b11f265b73ba33 # release/v1

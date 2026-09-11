@@ -3,7 +3,8 @@
 [Paper (ECCV 2026)](https://arxiv.org/abs/2608.20802) |
 [Project](https://julianteusch.github.io/projects/sparc/) |
 [Illustrated explainer](https://huggingface.co/spaces/Setoka/SPARC) |
-[Visual notebook](notebooks/01_forecasts_and_diagnostics.ipynb) |
+[Visual notebook](https://github.com/julianteusch/sparc-uq/blob/main/notebooks/01_forecasts_and_diagnostics.ipynb) |
+[Releases](https://github.com/julianteusch/sparc-uq/releases) |
 [Citation](#citation)
 
 **Keep your point estimator. Add feature-aware scales and held-out prediction intervals.**
@@ -14,7 +15,8 @@ A small PyTorch package implementing the reusable scaling core of
 **Status: initial integration library.** This is not the full motion benchmark
 release and does not yet reproduce the paper's learned graph-temporal covariance
 head, stabilized variants or published result tables. No checkpoints or datasets
-are included. The distribution name is local; it has not been published to PyPI.
+are included. Version 0.1.0 is distributed through GitHub; PyPI publication is
+pending. The distribution is named `sparc-uq`; the Python import is `sparc`.
 
 ## What It Does
 
@@ -34,11 +36,25 @@ point predictor + features -> kappa -> scaled covariance -> conformal intervals
 
 ## Install and Run
 
-From this repository, using Python 3.10+ and PyTorch 2.2+:
+Using Python 3.10+ and PyTorch 2.2+, install the versioned GitHub release without
+cloning the repository:
+
+```bash
+python -m pip install "sparc-uq @ https://github.com/julianteusch/sparc-uq/releases/download/v0.1.0/sparc_uq-0.1.0-py3-none-any.whl"
+```
+
+For plotting, change `sparc-uq @` to `sparc-uq[visualization] @`; for the notebook
+environment, use `sparc-uq[notebook] @`. The notebook itself is in the repository
+and source archive, not inside the wheel. This URL installs from GitHub, **not
+PyPI**. For a CPU-only PyTorch installation, install PyTorch first following its
+[official instructions](https://pytorch.org/get-started/locally/).
+
+To run the examples and notebook from a checkout:
 
 ```bash
 git clone https://github.com/julianteusch/sparc-uq.git
 cd sparc-uq
+git checkout v0.1.0
 python -m venv .venv
 source .venv/bin/activate
 python -m pip install -e '.[dev]'
@@ -54,20 +70,20 @@ with manually specified graph-temporal covariance, not a learned paper model.
 
 ## Visual Notebook and Diagnostics
 
-The [executed Jupyter notebook](notebooks/01_forecasts_and_diagnostics.ipynb) walks
+The [executed Jupyter notebook](https://github.com/julianteusch/sparc-uq/blob/main/notebooks/01_forecasts_and_diagnostics.ipynb) walks
 through the structured synthetic example with forecasts, interval coverage/width,
 feature-support projections, covariance comparisons and leverage diagnostics.
 
 ```bash
 python -m pip install -e '.[notebook]'
-jupyter lab notebooks/01_forecasts_and_diagnostics.ipynb
+python -m jupyterlab notebooks/01_forecasts_and_diagnostics.ipynb
 ```
 
 Reusable Matplotlib helpers live in `sparc.visualization`; install only
 `.[visualization]` when Jupyter is not needed. `sparc.explain_leverage` provides
 signed contributions to kappa-1 and local design-feature sensitivities without
 plotting dependencies. These are **not causal importance or SHAP values**.
-See the [visualization guide](docs/visualization.md) for contracts and limitations.
+See the [visualization guide](https://github.com/julianteusch/sparc-uq/blob/main/docs/visualization.md) for contracts and limitations.
 
 ## Attach an Existing PyTorch Model
 
@@ -119,7 +135,7 @@ uq = SPARC(adapter, model_id="my-structured-model-v1")
 
 `predict_with_features` above is a user-defined interface, not a required model
 method or an automatically discovered API. See the executable
-[structured example](examples/structured_forecast.py) for a complete callable.
+[structured example](https://github.com/julianteusch/sparc-uq/blob/main/examples/structured_forecast.py) for a complete callable.
 
 | Quantity | Exact Shape | Meaning |
 | --- | --- | --- |
@@ -198,12 +214,12 @@ versioned format and `torch.load(weights_only=True)`. The predictor and its
 preprocessing must be restored separately. `model_id` is a caller-maintained
 compatibility label, not a cryptographic weight check. Load only trusted artifacts.
 
-- [Tests](tests/): closed-form identities, source-function parity, finite-sample
+- [Tests](https://github.com/julianteusch/sparc-uq/tree/main/tests): closed-form identities, source-function parity, finite-sample
   quantiles, unchanged means, one model call, covariance correlation preservation,
   shape failures, streaming, serialization, synthetic coverage and optional CUDA.
-- [Scientific scope and provenance](docs/method-and-provenance.md).
-- [Integration guide and limitations](docs/integration.md).
-- [Release checklist](docs/release-checklist.md).
+- [Scientific scope and provenance](https://github.com/julianteusch/sparc-uq/blob/main/docs/method-and-provenance.md).
+- [Integration guide and limitations](https://github.com/julianteusch/sparc-uq/blob/main/docs/integration.md).
+- [Release checklist](https://github.com/julianteusch/sparc-uq/blob/main/docs/release-checklist.md).
 
 ## Citation
 
@@ -226,7 +242,8 @@ Accepted at ECCV 2026. Sakif Hossain and Julian Teusch contributed equally.
 ## License
 
 The original code and documentation in this repository are licensed under the
-[Apache License 2.0](LICENSE). See [NOTICE](NOTICE) for attribution.
+[Apache License 2.0](https://github.com/julianteusch/sparc-uq/blob/main/LICENSE).
+See [NOTICE](https://github.com/julianteusch/sparc-uq/blob/main/NOTICE) for attribution.
 Dependencies retain their respective licenses. This does not license external
 datasets, checkpoints or paper assets that are not distributed in this repository.
 
